@@ -1,0 +1,72 @@
+# Quant Portfolio Optimizer + ML Signal
+
+Hi 👋, thanks for checking out this project.  
+This is a **prototype quant research project** I built to demonstrate how to go from data → model → results in a clean, reproducible way.
+
+---
+
+## 🔍 What this project does
+- Pulls daily price data for a few ETFs (SPY, QQQ, IWM, TLT, GLD).
+- Builds a **Markowitz mean-variance portfolio optimizer** with constraints:
+  - Long-only
+  - Max 40% in any single asset
+- Adds a small **machine learning signal** (linear regression on lagged returns of SPY) to tilt allocations.
+- Backtests the strategy on out-of-sample data and reports performance:
+  - Sharpe ratio
+  - Max drawdown
+  - Value-at-Risk (VaR) and Conditional VaR (CVaR)
+
+It’s a simple project, but it shows the end-to-end workflow expected of a quant research analyst:
+**data ingestion → optimization → ML → backtest → risk metrics.**
+
+---
+
+## 🛠️ Tools
+- Python (pandas, NumPy, matplotlib)
+- cvxpy (for optimization)
+- scikit-learn (for ML signal)
+- pytest (for unit testing)
+- Yahoo Finance (for market data)
+
+---
+
+## 📊 Sample Results
+- **Base Weights:** SPY 7.9%, QQQ 12.1%, IWM 40%, TLT 40%, GLD 0%  
+- **Performance (2021–2025 test period):**
+  - Sharpe: ~0.79
+  - Max Drawdown: ~-27.5%
+  - VaR (95%): ~-1.85%
+  - CVaR (95%): ~-2.65%
+
+Efficient Frontier (Train data):  
+![Efficient Frontier](results/efficient_frontier.png)
+
+Equity Curve (Test data):  
+![Equity Curve](results/equity_curve.png)
+
+---
+
+## 📂 Project Structure
+quant-project/
+├── data_loader.py        # download & preprocess data
+├── optimizer.py          # mean-variance optimizer
+├── ml_signal.py          # ML signal generation
+├── backtest.py           # backtest & metrics
+├── main.py               # runs the whole pipeline
+├── tests/                # unit tests
+└── results/              # plots, csvs, presentation
+
+💡 Future Improvements
+
+I kept the prototype simple on purpose. If I were to extend this, I’d add:
+	•	Transaction costs & rebalance frequency tuning
+	•	Robust covariance estimation (Ledoit-Wolf shrinkage)
+	•	Stronger ML models (Random Forest, Gradient Boosting)
+	•	Walk-forward / rolling validation
+	•	Optimizers like Gurobi/CPLEX for production scale
+
+  🤝 Final Notes
+
+This repo is not investment advice. It’s a demo project to show how I approach quant research problems with code, math, and clean engineering practices.
+
+Thanks for reading 🙏 — I’d love to hear your thoughts!
